@@ -13,12 +13,16 @@ namespace UCR.App.Frontend.Pages
 
         private static IRepositorioDocente _repoDocente = new RepositorioDocente(new Persistencia.AppContext());
         [BindProperty]
+        
         public Docente docente{get;set;}
         
         public IActionResult OnGet(int docenteIdentificacion)
         {
-            Console.WriteLine(docenteIdentificacion);
-            docente=_repoDocente.GetDocente(docenteIdentificacion);
+
+            Console.WriteLine(docenteIdentificacion);  
+            
+            docente = _repoDocente.GetDocente(docenteIdentificacion);
+            Console.WriteLine(docente.id);  
 
             if (docente==null)
             {
@@ -28,10 +32,12 @@ namespace UCR.App.Frontend.Pages
                 return Page();
             }
         }
-        public IActionResult onPost()
+                
+        public IActionResult OnPost()
         {
             _repoDocente.UpdateDocente(docente);
             return RedirectToPage("./Docentes");
+            Console.WriteLine(docente.edad);  
         }
     }
 }
