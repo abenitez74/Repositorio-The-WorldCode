@@ -1,0 +1,17 @@
+﻿@page
+@model UCR.App.Frontend.Pages.DetallesModel
+@{
+}
+<h1>Detalles del Docente</h1>
+<table class="table">
+    <tr>
+        <td>@Model.docente.nombre</td>
+        <td>@Model.docente.appellidos</td>
+        <td>@Model.docente.identificacion</td>
+        <td>@Model.docente.edad</td>
+        <td>@Model.docente.facultad</td>
+        <td>@Model.docente.cubiculo</td>
+    </tr>
+    
+</table>
+  <a class="btn btn-primary text-dark" asp-area="" asp-page="/Listas/Docentes">Listado Docentes</a>

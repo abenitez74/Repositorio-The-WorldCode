@@ -1,0 +1,33 @@
+﻿@page
+@model UCR.App.Frontend.Pages.EditarModel
+@{
+}
+<h1>Editar Docente</h1>
+<form method="post">
+    <input type="hidden" asp-for="docente.id">
+    <div class="form-group">
+        <label asp-for="docente.nombre"></label>
+        <input asp-for="docente.nombre" class="form-control">
+    </div>
+    <div class="form-group">
+        <label asp-for="docente.appellidos"></label>
+        <input asp-for="docente.appellidos" class="form-control">
+    </div>
+    <div class="form-group">
+        <label asp-for="docente.edad"></label>
+        <input asp-for="docente.edad" class="form-control">
+    </div>
+    <div class="form-group">
+        <label asp-for="docente.identificacion"></label>
+        <input asp-for="docente.identificacion" class="form-control">
+    </div>
+    <div class="form-group">
+        <label asp-for="docente.facultad"></label>
+        <input asp-for="docente.facultad" class="form-control">
+    </div>
+    <div class="form-group">
+        <label asp-for="docente.cubiculo"></label>
+        <input asp-for="docente.cubiculo" class="form-control">
+    </div>
+    <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+</form> 

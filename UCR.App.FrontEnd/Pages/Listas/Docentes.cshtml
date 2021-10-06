@@ -1,0 +1,29 @@
+﻿@page
+@model UCR.App.FrontEnd.Pages.DocentesModel
+@{
+}
+<h1>Listado Docentes</h1>
+<table class="table">
+
+        @foreach(var iterador in Model.Docentes)
+    {
+        <tr>
+            <td>@iterador.identificacion</td>
+            <td>@iterador.nombre</td>
+            <td>@iterador.appellidos</td>
+            
+           <td>
+                <a class="btn btn-primary table-btn" asp-page="/Listas/Detalles" asp-route-docenteIdentificacion="@iterador.identificacion">
+                <i class="fas fa-info-circle" aria-hidden="true"></i>
+                </a>
+            </td>
+            <td>
+                <a class="btn btn-secondary table-btn" asp-page="/Listas/Editar" asp-route-docenteIdentificacion="@iterador.identificacion">
+                <i class="fas fa-address-book" aria-hidden="true"></i>
+                </a>
+            </td>
+
+        </tr>
+    }
+
+</table>
