@@ -13,6 +13,11 @@ namespace UCR.App.Persistencia
         public DbSet<PersonalCocina> PersonalCocina {get;set;}
         public DbSet<Restaurante> Restaurante {get;set;}
         public DbSet<Turno> Turnos {get;set;}
+
+        public DbSet<EstadoCovid> Estados {get;set;}
+ 
+
+
         
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

@@ -10,7 +10,7 @@ using UCR.App.Persistencia;
 namespace UCR.App.Persistencia.Migrations
 {
     [DbContext(typeof(AppContext))]
-    [Migration("20211001184829_inicial")]
+    [Migration("20211014105626_inicial")]
     partial class inicial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -20,6 +20,27 @@ namespace UCR.App.Persistencia.Migrations
                 .UseIdentityColumns()
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.0");
+
+            modelBuilder.Entity("UCR.App.Dominio.EstadoCovid", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<string>("FechaDiagonostico")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Sintomas")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("tipoEstadoCovid")
+                        .HasColumnType("int");
+
+                    b.HasKey("id");
+
+                    b.ToTable("Estados");
+                });
 
             modelBuilder.Entity("UCR.App.Dominio.Persona", b =>
                 {
@@ -36,23 +57,27 @@ namespace UCR.App.Persistencia.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("appellidos")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("edad")
                         .HasColumnType("int");
 
-                    b.Property<bool>("estadoCovid")
-                        .HasColumnType("bit");
+                    b.Property<int?>("estadoCovid_1id")
+                        .HasColumnType("int");
 
                     b.Property<int>("identificacion")
                         .HasColumnType("int");
 
                     b.Property<string>("nombre")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("id");
 
                     b.HasIndex("Restauranteid");
+
+                    b.HasIndex("estadoCovid_1id");
 
                     b.ToTable("Personas");
 
@@ -163,6 +188,12 @@ namespace UCR.App.Persistencia.Migrations
                     b.HasOne("UCR.App.Dominio.Restaurante", null)
                         .WithMany("comensales")
                         .HasForeignKey("Restauranteid");
+
+                    b.HasOne("UCR.App.Dominio.EstadoCovid", "estadoCovid_1")
+                        .WithMany()
+                        .HasForeignKey("estadoCovid_1id");
+
+                    b.Navigation("estadoCovid_1");
                 });
 
             modelBuilder.Entity("UCR.App.Dominio.Turno", b =>

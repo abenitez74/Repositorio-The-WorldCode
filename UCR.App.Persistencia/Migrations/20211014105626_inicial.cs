@@ -8,6 +8,21 @@ namespace UCR.App.Persistencia.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
+                name: "Estados",
+                columns: table => new
+                {
+                    id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Sintomas = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    FechaDiagonostico = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    tipoEstadoCovid = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Estados", x => x.id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Restaurante",
                 columns: table => new
                 {
@@ -27,11 +42,11 @@ namespace UCR.App.Persistencia.Migrations
                 {
                     id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    nombre = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    appellidos = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    nombre = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    appellidos = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     identificacion = table.Column<int>(type: "int", nullable: false),
                     edad = table.Column<int>(type: "int", nullable: false),
-                    estadoCovid = table.Column<bool>(type: "bit", nullable: false),
+                    estadoCovid_1id = table.Column<int>(type: "int", nullable: true),
                     Discriminator = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Restauranteid = table.Column<int>(type: "int", nullable: true),
                     dependencia = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -45,6 +60,12 @@ namespace UCR.App.Persistencia.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Personas", x => x.id);
+                    table.ForeignKey(
+                        name: "FK_Personas_Estados_estadoCovid_1id",
+                        column: x => x.estadoCovid_1id,
+                        principalTable: "Estados",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Personas_Restaurante_Restauranteid",
                         column: x => x.Restauranteid,
@@ -75,6 +96,11 @@ namespace UCR.App.Persistencia.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_Personas_estadoCovid_1id",
+                table: "Personas",
+                column: "estadoCovid_1id");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Personas_Restauranteid",
                 table: "Personas",
                 column: "Restauranteid");
@@ -93,6 +119,9 @@ namespace UCR.App.Persistencia.Migrations
 
             migrationBuilder.DropTable(
                 name: "Personas");
+
+            migrationBuilder.DropTable(
+                name: "Estados");
 
             migrationBuilder.DropTable(
                 name: "Restaurante");

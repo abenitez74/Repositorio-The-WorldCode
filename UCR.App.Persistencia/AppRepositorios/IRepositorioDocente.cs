@@ -10,16 +10,19 @@ namespace UCR.App.Persistencia
         Docente AddDocente(Docente docente);
         //GetProfesor
         
-        Docente GetDocente(int identificacion);
+        Docente GetDocente(int id);
         
         //UpdateProfesor
 
         Docente UpdateDocente(Docente docente);
 
         //DeleteProfesor
-        bool DeleteDocente(int identificacion);
+        bool DeleteDocente(int id);
 
         //getAllProfesor
         IEnumerable<Docente> GetAllDocentes();
+
+        //GetDocenteEstado
+        Docente GetDocenteEstado(int idDocente);
     }
 }

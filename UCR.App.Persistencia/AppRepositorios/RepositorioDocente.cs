@@ -1,12 +1,14 @@
 using System.Collections.Generic;
 using UCR.App.Dominio;
 using System.Linq;
+using System;
+using Microsoft.EntityFrameworkCore;
 
 namespace UCR.App.Persistencia
 {
     public class RepositorioDocente : IRepositorioDocente
     {
-        private readonly AppContext _appContext;
+        private static AppContext _appContext;
 
         public RepositorioDocente(AppContext appContext)
         {
@@ -22,15 +24,15 @@ namespace UCR.App.Persistencia
             return docenteAdicionado.Entity;
         }
         //BuscarDocente
-        Docente IRepositorioDocente.GetDocente(int identificacion)
+        Docente IRepositorioDocente.GetDocente(int id)
         {
-            var docenteEncontrado = _appContext.Docentes.FirstOrDefault(p => p.identificacion==identificacion);
+            var docenteEncontrado = _appContext.Docentes.FirstOrDefault(p => p.id==id);
             return docenteEncontrado;
         }
         //ActualizarDocente
         Docente IRepositorioDocente.UpdateDocente(Docente docente)
         {
-            var docenteEncontrado = _appContext.Docentes.FirstOrDefault(p=>p.identificacion==docente.identificacion);
+            var docenteEncontrado = _appContext.Docentes.FirstOrDefault(p=>p.id==docente.id);
             if (docenteEncontrado!=null)
             {
                 docenteEncontrado.nombre = docente.nombre;
@@ -45,9 +47,9 @@ namespace UCR.App.Persistencia
         }
         //BorrarDocente
 
-        bool IRepositorioDocente.DeleteDocente(int identificacion)
+        bool IRepositorioDocente.DeleteDocente(int docenteId)
         {
-            var docenteEncontrado = _appContext.Docentes.FirstOrDefault(p=>p.identificacion==identificacion);
+            var docenteEncontrado = _appContext.Docentes.FirstOrDefault(p=>p.id==docenteId);
             if (docenteEncontrado==null)
                 return false;
             _appContext.Docentes.Remove(docenteEncontrado);
@@ -61,6 +63,11 @@ namespace UCR.App.Persistencia
             
             return _appContext.Docentes;
             
+        }
+
+        Docente IRepositorioDocente.GetDocenteEstado(int idDocente)
+        {
+            return _appContext.Docentes.Include(p=>p.estadoCovid_1).SingleOrDefault(p=>p.id==idDocente);
         }
 
     }
