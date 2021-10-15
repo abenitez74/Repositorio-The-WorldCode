@@ -6,9 +6,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using UCR.App.Persistencia;
 using UCR.App.Dominio;
+using Microsoft.AspNetCore.Authorization;
 
 namespace UCR.App.FrontEnd.Pages
 {
+    [Authorize]
     public class DocentesModel : PageModel
     {
         private static IRepositorioDocente _repoDocente = new RepositorioDocente(new Persistencia.AppContext());

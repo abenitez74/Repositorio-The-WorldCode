@@ -11,19 +11,24 @@
             <td>@docente.identificacion</td>
             <td>@docente.nombre</td>
             <td>@docente.appellidos</td>
-            
-           <td>
-                <a class="btn btn-primary table-btn" asp-page="./Detalles" asp-route-docenteId="@docente.identificacion">
+            <td>
+                <a class="btn btn-primary table-btn" asp-page="./Detalles" asp-route-docenteId="@docente.id">
                 <i class="fas fa-info-circle" aria-hidden="true"></i>
                 </a>
             </td>
             <td>
-                <a class="btn btn-secondary table-btn" asp-page="./Editar" asp-route-docenteIdentificacion="@docente.identificacion">
+                <a class="btn btn-secondary table-btn" asp-page="./Editar" asp-route-docenteIdentificacion="@docente.id">
                 <i class="fas fa-address-book" aria-hidden="true"></i>
                 </a>
             </td>
 
+            <td>
+                <a class="btn btn-danger table-btn" asp-page="./Eliminar" asp-route-docenteIdentificacion="@docente.id">
+                <i class="fas fa-trash-alt" aria-hidden="true"></i>
+                </a>
+            </td>
         </tr>
     }
 
 </table>
+<a asp-page=".\Editar" class="btn btn-primary">Adicionar Docente</a>

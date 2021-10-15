@@ -1,0 +1,19 @@
+﻿@page
+@model UCR.App.Frontend.Pages.EliminarModel
+@{
+}
+<h1>Desea Eliminar el docente</h1>
+<table class="table">
+    <tr>
+        <td>@Model.docente.nombre</td>
+        <td>@Model.docente.appellidos</td>
+        <td>@Model.docente.identificacion</td>
+        <td>@Model.docente.edad</td>
+        <td>@Model.docente.facultad</td>
+        <td>@Model.docente.cubiculo</td>
+    </tr>
+</table>
+<form method="post">
+    <input type="hidden" asp-for="docente.identificacion">
+    <button type="submit" class="btn btn-primary">Confirmar Eliminar</button>
+</form>

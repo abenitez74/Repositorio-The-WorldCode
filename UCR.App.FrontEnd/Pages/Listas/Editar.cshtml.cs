@@ -16,14 +16,19 @@ namespace UCR.App.Frontend.Pages
         
         public Docente docente{get;set;}
         
-        public IActionResult OnGet(int docenteIdentificacion)
+        public IActionResult OnGet(int? docenteIdentificacion)
         {
-
-            Console.WriteLine(docenteIdentificacion);  
             
-            docente = _repoDocente.GetDocente(docenteIdentificacion);
-            Console.WriteLine(docente.id);  
-
+            if(docenteIdentificacion.HasValue)
+            {
+                docente = _repoDocente.GetDocente(docenteIdentificacion.Value);
+            }
+            else
+            {
+                docente = new Docente(); 
+            }
+            
+            
             if (docente==null)
             {
                 return RedirectToPage("./Docentes");
@@ -35,9 +40,21 @@ namespace UCR.App.Frontend.Pages
                 
         public IActionResult OnPost()
         {
-            _repoDocente.UpdateDocente(docente);
+            if(!ModelState.IsValid)
+            {
+                return Page();
+            }else
+            {
+                if(docente.id>0)
+            {
+
+                _repoDocente.UpdateDocente(docente);
+            }else{
+                Console.WriteLine(docente);
+                _repoDocente.AddDocente(docente);
+            }    
+            }
             return RedirectToPage("./Docentes");
-            Console.WriteLine(docente.edad);  
         }
     }
 }
